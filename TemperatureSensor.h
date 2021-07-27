@@ -3,18 +3,21 @@
  * @date 2/2/21
  */
 
-class TemperatureSensor
+#include "AbstractAnalogSensor.h"
+
+
+class TemperatureSensor : public AbstractAnalogSensor
 {
 public:
     /**
      * Plug temperature sensor into an analog pin of Grove shield.
      */
-    TemperatureSensor(int pin) : _pin(pin) {};
+    TemperatureSensor(int pin) : AbstractAnalogSensor(pin) {};
 
     /**
      * Returns temperature in Fahrenheit.
      */
-    float sense()
+    float sense() override
     {
         int val = analogRead(_pin);
         float resistance = (float)(1023-val)*10000/val;
@@ -25,6 +28,5 @@ public:
     }
 
 private:
-    int _pin;
     const int B = 3975;
 };
