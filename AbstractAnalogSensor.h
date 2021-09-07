@@ -3,6 +3,8 @@
  * @date 7/26/21
  */
 
+#include <CircularBuffer.h>
+
 #pragma once
 
 
@@ -17,7 +19,7 @@ public:
     /**
      * Constructor
      */
-    AbstractAnalogSensor(int pin) : _pin(pin) {};
+    AbstractAnalogSensor(int pin) : _pin(pin), _circularBuffer(100) {};
 
     /**
      * Returns sensed value 0-1
@@ -26,9 +28,11 @@ public:
     {
         int val = analogRead(_pin);
         float ratio = (float) val / 1024.0;
-        return ratio;
+        _circularBuffer.push_back(ratio);
+        return _circularBuffer.getMean();
     };
 
 protected:
     int _pin;
+    CircularBuffer<float> _circularBuffer;
 };

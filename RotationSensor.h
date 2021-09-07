@@ -21,11 +21,13 @@ public:
     RotationSensor(int pin, Direction dir) : AbstractAnalogSensor(pin), _dir(dir) {};
 
     /**
-     * Returns position 0-1
+     * Returns position 0-1. Note that we don't want to use the circular buffer
+     * in this case.
      */
     float sense() override
     {
-        float ratio = AbstractAnalogSensor::sense();
+        int val = analogRead(_pin);
+        float ratio = (float) val / 1024.0;
         return (_dir == INCREMENT_CCW) ? ratio : 1 - ratio;
     };
 

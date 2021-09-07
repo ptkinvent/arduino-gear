@@ -24,7 +24,8 @@ public:
         float temperature_c = 1/(log(resistance/10000)/B+1/298.15)-273.15;
         float temperature_f = (temperature_c*1.8)+32;
         float temperature = temperature_f;
-        return temperature;
+        _circularBuffer.push_back(temperature);
+        return _circularBuffer.getMean();
     }
 
 private:
