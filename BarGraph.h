@@ -47,7 +47,9 @@ public:
         {
             _bar.setBar(i, LED_OFF);
         }
-        for (int i=0; i<numLeds; i++)
+
+        // Light up LEDs in reverse order
+        for (int i=(24-numLeds); i<24; i++)
         {
             _bar.setBar(i, color);
         }
